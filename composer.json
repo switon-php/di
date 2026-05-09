@@ -28,6 +28,9 @@
     "psr/event-dispatcher": "^1.0",
     "switon/core": "^1.0"
   },
+  "require-dev": {
+    "phpunit/phpunit": "^12.0"
+  },
   "autoload": {
     "psr-4": {
       "Switon\\Di\\": "src/"
