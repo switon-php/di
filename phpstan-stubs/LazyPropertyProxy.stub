@@ -1,0 +1,25 @@
+<?php
+
+declare(strict_types=1);
+
+namespace Switon\Di;
+
+class LazyPropertyProxy
+{
+    /**
+     * @param array<int, mixed> $args
+     */
+    public function __call(string $name, array $args): mixed
+    {
+        $service = $this->resolve();
+        /** @var callable $callable */
+        $callable = [$service, $name];
+
+        return call_user_func_array($callable, $args);
+    }
+
+    private function resolve(): object
+    {
+        return new \stdClass();
+    }
+}

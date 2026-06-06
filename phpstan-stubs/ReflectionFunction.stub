@@ -1,0 +1,13 @@
+<?php
+
+declare(strict_types=1);
+
+class ReflectionFunction
+{
+    /**
+     * @param \Closure|string|callable $function
+     */
+    public function __construct($function)
+    {
+    }
+}

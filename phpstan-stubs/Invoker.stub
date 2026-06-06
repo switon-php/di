@@ -1,0 +1,16 @@
+<?php
+
+declare(strict_types=1);
+
+namespace Switon\Di;
+
+class Invoker implements InvokerInterface
+{
+    /**
+     * @param callable|array{object, string}|array{class-string, string} $callable
+     * @param array<int|string, mixed> $parameters
+     */
+    public function invoke(callable|array $callable, array $parameters = []): mixed
+    {
+    }
+}

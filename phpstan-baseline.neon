@@ -1,0 +1,25 @@
+parameters:
+	ignoreErrors:
+		-
+			message: '#^Method Switon\\Di\\Container\:\:make\(\) should return T of object but returns object\.$#'
+			identifier: return.type
+			count: 2
+			path: src/Container.php
+
+		-
+			message: '#^Method Switon\\Di\\Container\:\:resolveClassName\(\) should return class\-string but returns string\.$#'
+			identifier: return.type
+			count: 1
+			path: src/Container.php
+
+		-
+			message: '#^Parameter \#1 \$objectOrClass of class ReflectionClass constructor expects class\-string\<T of object\>\|T of object, string given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/Container.php
+
+		-
+			message: '#^Template type T of method Switon\\Di\\Container\:\:make\(\) is not referenced in a parameter\.$#'
+			identifier: method.templateTypeNotInParameter
+			count: 1
+			path: src/Container.php

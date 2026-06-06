@@ -1,0 +1,16 @@
+<?php
+
+declare(strict_types=1);
+
+namespace Switon\Di\Tests\Fixtures;
+
+use Switon\Core\Attribute\Autowired;
+
+// ============================================================================
+// Array Property Injection
+// ============================================================================
+
+class TestServiceWithArray
+{
+    #[Autowired] public array $items;
+}

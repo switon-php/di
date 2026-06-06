@@ -1,0 +1,25 @@
+services:
+    -
+        class: Switon\Di\PhpStan\NamedLookupByMethodReturnTypeExtension
+        tags:
+            - phpstan.broker.dynamicMethodReturnTypeExtension
+    -
+        class: Switon\Di\PhpStan\MakerMakeMethodReturnTypeExtension
+        tags:
+            - phpstan.broker.dynamicMethodReturnTypeExtension
+    -
+        class: Switon\Di\PhpStan\ContainerMakeMethodReturnTypeExtension
+        tags:
+            - phpstan.broker.dynamicMethodReturnTypeExtension
+    -
+        class: Switon\Di\PhpStan\ContainerResolveClassNameReturnTypeExtension
+        tags:
+            - phpstan.broker.dynamicMethodReturnTypeExtension
+    -
+        class: Switon\Di\PhpStan\ContainerCreateByDefinitionReturnTypeExtension
+        tags:
+            - phpstan.broker.dynamicMethodReturnTypeExtension
+    -
+        class: Switon\Di\PhpStan\ContainerMethodsClassReflectionExtension
+        tags:
+            - phpstan.broker.methodsClassReflectionExtension

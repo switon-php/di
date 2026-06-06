@@ -1,0 +1,18 @@
+includes:
+    - phpstan-baseline.neon
+
+parameters:
+    stubFiles:
+        - phpstan-stubs/InvokerInterface.stub
+        - phpstan-stubs/Invoker.stub
+        - phpstan-stubs/functions.stub
+        - phpstan-stubs/ReflectionFunction.stub
+        - phpstan-stubs/SingletonCreated.stub
+        - phpstan-stubs/LazyPropertyProxy.stub
+    excludePaths:
+        analyseAndScan:
+            - src/InvokerInterface.php
+            - src/Invoker.php
+            - src/Event/SingletonCreated.php
+            - src/LazyPropertyProxy.php
+            - src/Injector.php

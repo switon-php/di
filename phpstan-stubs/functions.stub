@@ -1,0 +1,13 @@
+<?php
+
+declare(strict_types=1);
+
+namespace {
+    /**
+     * @param callable|array{object, string}|array{class-string, string} $callback
+     * @param array<int, mixed> $args
+     */
+    function call_user_func_array(callable|array $callback, array $args): mixed
+    {
+    }
+}
