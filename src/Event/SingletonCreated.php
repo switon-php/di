@@ -5,6 +5,8 @@ declare(strict_types=1);
 namespace Switon\Di\Event;
 
 use JsonSerializable;
+use Switon\Core\ContainerInterface;
+use Switon\Core\SenderAwareInterface;
 
 use function get_class;
 
@@ -15,15 +17,21 @@ use function get_class;
  *
  * @see \Switon\Di\Container
  */
-class SingletonCreated implements
-    JsonSerializable
-    /**
-     * @param array<string, mixed> $definitions
-     */
+class SingletonCreated implements JsonSerializable, SenderAwareInterface
 {
-    public function __construct(public string $id, public object $instance, public array $definitions)
+    public function __construct(
+        public ContainerInterface $sender,
+        public string $id,
+        public object $instance,
+        public array $definitions
+    )
     {
 
+    }
+
+    public function getSender(): ContainerInterface
+    {
+        return $this->sender;
     }
 
     /** @return array<string, mixed> */

@@ -520,7 +520,7 @@ class Container implements ContainerInterface
             $instance = $this->createByDefinition($id, $id);
 
             $this->instances[$id] = $instance;
-            $this->dispatchEvent(new SingletonCreated($id, $instance, $this->definitions));
+            $this->dispatchEvent(new SingletonCreated($this, $id, $instance, $this->definitions));
         } finally {
             if ($instance === null) {
                 unset($this->instances[$id]);
@@ -566,7 +566,7 @@ class Container implements ContainerInterface
 
         // All other cases (object with __invoke, array with class, string class name) use createByDefinition
         $instance = $this->createByDefinition($definition, $id);
-        $this->dispatchEvent(new SingletonCreated($id, $instance, $this->definitions));
+        $this->dispatchEvent(new SingletonCreated($this, $id, $instance, $this->definitions));
         return $this->instances[$id] = $instance;
     }
 

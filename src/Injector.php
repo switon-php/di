@@ -153,13 +153,13 @@ class Injector implements InjectorInterface
     {
         if ($value !== null) {
             if (str_contains($value, '#')) {
-                $this->dispatchEvent(new FactoryObjectInjected($type, $name, str_starts_with($value, '#') ? "$type$value" : $value));
+                $this->dispatchEvent(new FactoryObjectInjected($this, $type, $name, str_starts_with($value, '#') ? "$type$value" : $value));
             }
             $value = $this->container->get(str_starts_with($value, '#') ? "$type$value" : $value);
         } else {
             $alias = "$type#$name";
             if ($this->container->has($alias)) {
-                $this->dispatchEvent(new FactoryObjectInjected($type, $name, $alias));
+                $this->dispatchEvent(new FactoryObjectInjected($this, $type, $name, $alias));
                 $value = $this->container->get($alias);
             } else {
                 $value = $this->container->get($type);
