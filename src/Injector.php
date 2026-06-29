@@ -12,6 +12,7 @@ use ReflectionProperty;
 use ReflectionType;
 use ReflectionUnionType;
 use Switon\Core\Attribute\Autowired;
+use Switon\Core\Attributes;
 use Switon\Core\ClassName;
 use Switon\Core\ContainerInterface;
 use Switon\Core\InjectorInterface;
@@ -78,12 +79,11 @@ class Injector implements InjectorInterface
 
         foreach ($properties as $property) {
             // Only process properties with #[Autowired] attribute
-            $autowiredAttrs = $property->getAttributes(Autowired::class);
-            if (empty($autowiredAttrs)) {
+            $autowiredAttribute = Attributes::first($property, Autowired::class);
+            if ($autowiredAttribute === null) {
                 continue;
             }
 
-            $autowiredAttribute = $autowiredAttrs[0]->newInstance();
             $isInstances = $autowiredAttribute->isInstances();
 
             if ($property->hasType()) {
