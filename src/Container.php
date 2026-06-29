@@ -308,11 +308,10 @@ class Container implements ContainerInterface
                 if (!isset($this->invoker)) {
                     $this->invoker = $this->get(InvokerInterface::class);
                 }
-                $instance = $this->invoker->invoke([$definition, '__invoke'], ['parameters' => []]);
-                if (!is_object($instance)) {
-                    MisuseException::raise('Factory __invoke() must return object, got {type}', ['type' => gettype($instance)]);
-                }
-                return $instance;
+
+                return $this->assertFactoryInvokeResult(
+                    $this->invoker->invoke([$definition, '__invoke'], ['parameters' => []])
+                );
             }
             // Object without __invoke - return as-is (singleton instance)
             return $definition;
@@ -341,11 +340,10 @@ class Container implements ContainerInterface
                 if ($object === null) {
                     $object = $this->createInstance($className, [], $className);
                 }
-                $instance = $this->invoker->invoke([$object, '__invoke'], ['parameters' => $parameters]);
-                if (!is_object($instance)) {
-                    MisuseException::raise('{class}::__invoke() must return object (factory pattern), got {type}', ['class' => $className, 'type' => gettype($instance)]);
-                }
-                return $instance;
+                return $this->assertFactoryInvokeResult(
+                    $this->invoker->invoke([$object, '__invoke'], ['parameters' => $parameters]),
+                    $className
+                );
             }
 
             // Regular class - create instance with parameters
@@ -367,11 +365,11 @@ class Container implements ContainerInterface
                 if ($object === null) {
                     $object = $this->createInstance($className, [], $className);
                 }
-                $instance = $this->invoker->invoke([$object, '__invoke'], ['parameters' => []]);
-                if (!is_object($instance)) {
-                    MisuseException::raise('{class}::__invoke() must return object (factory pattern), got {type}', ['class' => $className, 'type' => gettype($instance)]);
-                }
-                return $instance;
+
+                return $this->assertFactoryInvokeResult(
+                    $this->invoker->invoke([$object, '__invoke'], ['parameters' => []]),
+                    $className
+                );
             }
 
             // Regular class - create instance
@@ -379,6 +377,25 @@ class Container implements ContainerInterface
         }
 
         UnsupportedDefinitionException::raise('Unsupported service definition type: {type}, expected string (class name), array (config), or object (instance/factory)', ['type' => get_debug_type($definition)]);
+    }
+
+    /**
+     * @return object
+     */
+    protected function assertFactoryInvokeResult(mixed $instance, ?string $className = null): object
+    {
+        if (is_object($instance)) {
+            return $instance;
+        }
+
+        if ($className === null) {
+            MisuseException::raise('Factory __invoke() must return object, got {type}', ['type' => gettype($instance)]);
+        }
+
+        MisuseException::raise(
+            '{class}::__invoke() must return object (factory pattern), got {type}',
+            ['class' => $className, 'type' => gettype($instance)]
+        );
     }
 
     /**
