@@ -47,7 +47,7 @@ class ContainerCreateByDefinitionReturnTypeExtension implements DynamicMethodRet
         return $classType ?? null;
     }
 
-    private function resolveClassNameFromDefinitionType(Type $definitionType): ?Type
+    protected function resolveClassNameFromDefinitionType(Type $definitionType): ?Type
     {
         if ($definitionType->isString()->yes()) {
             return $this->resolveClassNameType($definitionType);

@@ -9,11 +9,11 @@ use PHPStan\Type\ClassStringType;
 use PHPStan\Type\Generic\TemplateTypeMap;
 use PHPStan\Type\Type;
 
-final class ContainerWidenedParametersAcceptor implements ParametersAcceptor
+class ContainerWidenedParametersAcceptor implements ParametersAcceptor
 {
     public function __construct(
-        private ParametersAcceptor $inner,
-        private string             $methodName,
+        protected ParametersAcceptor $inner,
+        protected string             $methodName,
     ) {
     }
 

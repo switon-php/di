@@ -14,7 +14,7 @@ use Switon\Di\Container;
  */
 class ContainerMethodsClassReflectionExtension implements MethodsClassReflectionExtension
 {
-    private const array METHODS = [
+    protected const array METHODS = [
         'resolveClassName' => true,
         'createInstance' => true,
     ];

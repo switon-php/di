@@ -10,11 +10,11 @@ use PHPStan\Reflection\MethodReflection;
 use PHPStan\TrinaryLogic;
 use PHPStan\Type\Type;
 
-final class ContainerWidenedMethodReflection implements MethodReflection
+class ContainerWidenedMethodReflection implements MethodReflection
 {
     public function __construct(
-        private MethodReflection $inner,
-        private string           $methodName,
+        protected MethodReflection $inner,
+        protected string           $methodName,
     ) {
     }
 
