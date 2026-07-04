@@ -24,8 +24,7 @@ class SingletonCreated implements JsonSerializable, SenderAwareInterface
         public string $id,
         public object $instance,
         public array $definitions
-    )
-    {
+    ) {
 
     }
 

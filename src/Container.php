@@ -153,7 +153,7 @@ class Container implements ContainerInterface
                 if (!isset($definition['class'])) {
                     if (is_string($d)) {
                         $definition['class'] = $d;
-                    } elseif (is_array($d) && is_string($d['class'])) {
+                    } elseif (is_array($d) && isset($d['class']) && is_string($d['class'])) {
                         $definition['class'] = $d['class'];
                     }
                 }
