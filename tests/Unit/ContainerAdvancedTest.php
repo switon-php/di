@@ -339,7 +339,7 @@ class ContainerAdvancedTest extends TestCase
     }
 
     /**
-     * Factory object registered as an instance must return an object from {@code __invoke()}.
+     * Factory object registered as an instance must return an object from `__invoke()`.
      */
     public function testGetInvokeObjectReturningNonObjectRaisesMisuseException(): void
     {
@@ -358,7 +358,7 @@ class ContainerAdvancedTest extends TestCase
     }
 
     /**
-     * Array-defined invokable class whose {@code __invoke()} does not return an object must raise misuse (factory pattern).
+     * Array-defined invokable class whose `__invoke()` does not return an object must raise misuse (factory pattern).
      */
     public function testGetInvokeClassViaArrayDefinitionReturningNonObjectRaisesMisuseException(): void
     {

@@ -189,7 +189,7 @@ class ContainerCommandTest extends TestCase
         $this->assertOutputContainsString('Unknown');
     }
 
-    /** Array definitions without a {@code class} key are formatted as JSON for console output. */
+    /** Array definitions without a `class` key are formatted as JSON for console output. */
     public function testDefinitionsTableFormatsArrayDefinitionWithoutClassKeyAsJson(): void
     {
         $this->container->set('config.raw.keys', ['region' => 'eu', 'ttl' => 60]);

@@ -11,7 +11,7 @@ use Switon\Core\SceneManagerInterface;
 use Switon\Di\ServiceProvider;
 use Switon\Di\Tests\TestCase;
 
-final class ServiceProviderIntegrationTest extends TestCase
+class ServiceProviderIntegrationTest extends TestCase
 {
     protected function setUp(): void
     {

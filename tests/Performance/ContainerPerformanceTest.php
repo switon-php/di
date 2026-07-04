@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Switon\Di\Tests\Performance;
 
 use Switon\Di\Tests\Fixtures\TestService;
-use Switon\Di\Tests\TestCase;
+use PHPUnit\Framework\TestCase;
 
 /**
  * Performance tests for Container to identify bottlenecks.

@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Switon\Di\Tests\Unit;
 
-use ReflectionMethod;
 use Switon\Di\Container;
 use Switon\Di\Exception\CircularDependencyException;
 use Switon\Di\Exception\NotFoundException;
@@ -12,6 +11,7 @@ use Switon\Di\Exception\ReflectionException as DiReflectionException;
 use Switon\Di\Exception\UnsupportedDefinitionException;
 use Switon\Di\Factory;
 use Switon\Di\ServiceProvider;
+use Switon\Di\Tests\Fixtures\ExposeContainerFactoryContainer;
 use Switon\Di\Tests\Fixtures\ExposeGetByIdContainer;
 use Switon\Di\Tests\Fixtures\TestService;
 use Switon\Di\Tests\TestCase;
@@ -375,23 +375,21 @@ class ContainerEdgeCasesTest extends TestCase
     /** ReflectionClass constructor failure is wrapped as DI ReflectionException. */
     public function testCreateInstanceWrapsReflectionFailure(): void
     {
-        $method = new ReflectionMethod(Container::class, 'createInstance');
-        $method->setAccessible(true);
+        $container = new ExposeContainerFactoryContainer([]);
 
         $this->expectException(DiReflectionException::class);
 
-        $method->invoke($this->container, 'Switon\\Di\\Tests\\Fixtures\\NonexistentClassForReflectionCoverage999', [], null);
+        $container->callCreateInstance('Switon\\Di\\Tests\\Fixtures\\NonexistentClassForReflectionCoverage999', [], null);
     }
 
     /** createByDefinition(array without class) raises UnsupportedDefinitionException. */
     public function testCreateByDefinitionArrayMissingClassKeyRaisesUnsupportedDefinition(): void
     {
-        $method = new ReflectionMethod(Container::class, 'createByDefinition');
-        $method->setAccessible(true);
+        $container = new ExposeContainerFactoryContainer([]);
 
         $this->expectException(UnsupportedDefinitionException::class);
 
-        $method->invoke($this->container, ['only' => 'keys'], null);
+        $container->callCreateByDefinition(['only' => 'keys'], null);
     }
 
     /** getById(): named ID with an explicit definition hits the isset() branch and delegates to getByDefinition(). */
