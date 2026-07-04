@@ -47,7 +47,8 @@ use function str_starts_with;
  * - arrays via <code>injectAutowiredArray()</code> or <code>injectInstances()</code>
  * - named service resolution emits <code>FactoryObjectInjected</code>
  * - union autowiring only works when the target stays unambiguous
- * - scalar and array values come from parameters or defaults, not service lookup
+ * - scalar, array, and nullable object values come from parameters or defaults, not service lookup
+ * - non-nullable object values resolve from the container; string parameters are service IDs
  *
  * @see \Switon\Core\InjectorInterface
  * @see \Switon\Core\Attribute\Autowired
@@ -185,32 +186,37 @@ class Injector implements InjectorInterface
 
         $this->guardInterfaceFirstAutowired($rType, $object, $name);
 
-        $hasExplicitValue = array_key_exists($name, $parameters);
-        $value = $hasExplicitValue ? $parameters[$name] : null;
+        $hasParameter = isset($parameters[$name]);
+        $value = $hasParameter ? $parameters[$name] : null;
 
         // Also check by type name (allows passing [ContainerInterface::class => $instance] or [ContainerInterface::class => '#cache'])
         // Supports both object instances and string references (like '#cache')
         // Only check type name if property name didn't provide a value
-        if (!$hasExplicitValue && $value === null) {
+        if (!$hasParameter) {
             if ($rType instanceof ReflectionUnionType) {
                 // For union types, try to find a matching type in parameters
                 foreach ($rType->getTypes() as $type) {
                     $typeName = $type->getName();
                     if ($typeName !== Lazy::class && !$type->isBuiltin()) {
-                        if (array_key_exists($typeName, $parameters)) {
+                        if (isset($parameters[$typeName])) {
                             $value = $parameters[$typeName];
-                            $hasExplicitValue = true;
+                            $hasParameter = true;
                             break;
                         }
                     }
                 }
             } else {
                 $type = $this->getTypeName($rType);
-                if (array_key_exists($type, $parameters)) {
+                if (isset($parameters[$type])) {
                     $value = $parameters[$type];
-                    $hasExplicitValue = true;
+                    $hasParameter = true;
                 }
             }
+        }
+
+        if (!$hasParameter && $rType->allowsNull()) {
+            $property->setValue($object, null);
+            return;
         }
 
         // Inline array: make() it. Has 'class' → use it; no 'class' → use property type (container resolves interface).

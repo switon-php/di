@@ -618,10 +618,10 @@ class UserScenarioTest extends TestCase
     }
 
     /**
-     * Scenario: User must choose an explicit strategy for missing object dependencies.
+     * Scenario: Optional object dependencies use nullable types; deferred resolution uses Lazy.
      *
-     * <code>?Type</code> does not make <code>#[Autowired]</code> optional.
-     * Use <code>Type|Lazy</code> when resolution should be deferred.
+     * <code>?Type</code> stays null when no parameter is passed.
+     * Use <code>Type|Lazy</code> when resolution should be deferred but still required.
      */
     public function testUseOptionalDependencies(): void
     {
@@ -631,8 +631,9 @@ class UserScenarioTest extends TestCase
         $nullableService = new class () {
             #[Autowired] public ?CacheInterface $cache = null;
         };
-        $this->expectException(\Switon\Di\Exception\ServiceInjectionException::class);
         $this->injector->inject($nullableService);
+
+        $this->assertNull($nullableService->cache);
     }
 
     public function testUseLazyDependenciesForDeferredResolution(): void

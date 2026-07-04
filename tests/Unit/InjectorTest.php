@@ -237,6 +237,43 @@ class InjectorTest extends TestCase
         $this->assertNull($service->optional);
     }
 
+    public function testPropertyInjectionWithNullableObjectTypeIsNullWithoutParameters(): void
+    {
+        $service = new class () {
+            #[Autowired] public ?MissingOptionalDependency $service = null;
+        };
+
+        $this->injector->inject($service);
+
+        $this->assertNull($service->service);
+    }
+
+    public function testPropertyInjectionWithNullableObjectTypeUsesExplicitInstance(): void
+    {
+        $implementation = new MissingOptionalDependencyImpl();
+        $service = new class () {
+            #[Autowired] public ?MissingOptionalDependency $service = null;
+        };
+
+        $this->injector->inject($service, ['service' => $implementation]);
+
+        $this->assertSame($implementation, $service->service);
+    }
+
+    public function testPropertyInjectionWithNullableObjectTypeResolvesStringReference(): void
+    {
+        $implementation = new MissingOptionalDependencyImpl();
+        $this->container->set(MissingOptionalDependency::class, $implementation);
+
+        $service = new class () {
+            #[Autowired] public ?MissingOptionalDependency $service = null;
+        };
+
+        $this->injector->inject($service, ['service' => MissingOptionalDependency::class]);
+
+        $this->assertSame($implementation, $service->service);
+    }
+
     public function testPropertyInjectionWithRequiredObjectTypeThrowsWhenServiceMissing(): void
     {
         $service = new TestServiceWithRequiredObject();
@@ -780,7 +817,7 @@ class InjectorTest extends TestCase
         $this->container->set(TestDependency::class, TestDependency::class);
 
         $service = new class () {
-            #[Autowired] private TestDependency $dependency;
+            #[Autowired] protected TestDependency $dependency;
 
             public function getDependency(): TestDependency
             {
@@ -802,7 +839,7 @@ class InjectorTest extends TestCase
     public function testPrivatePropertyInjectionWithScalarAndDefault(): void
     {
         $service = new class () {
-            #[Autowired] private string $name = 'PrivateDefault';
+            #[Autowired] protected string $name = 'PrivateDefault';
 
             public function getName(): string
             {
@@ -813,7 +850,7 @@ class InjectorTest extends TestCase
         // Act
         $this->injector->inject($service);
 
-        // Assert – default value should be preserved for private scalar properties
+        // Assert – default value should be preserved for protected scalar properties
         $this->assertSame('PrivateDefault', $service->getName());
     }
 
