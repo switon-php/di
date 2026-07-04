@@ -98,6 +98,11 @@ class Invoker implements InvokerInterface
                 );
             }
 
+            if ($value === null && $rType instanceof ReflectionNamedType && $rType->allowsNull()) {
+                $args[] = null;
+                continue;
+            }
+
             $args[] = $this->resolveDependency($value, $type, $callable, $rFunction, $name);
         }
         return $callable(...$args);
@@ -123,6 +128,13 @@ class Invoker implements InvokerInterface
         ReflectionFunction|ReflectionMethod $rFunction,
         string                              $name,
     ): mixed {
+        if (is_array($value) && isset($value['class'])) {
+            $className = $value['class'];
+            unset($value['class']);
+
+            return $this->container->make($className, $value);
+        }
+
         if ($type === null || is_object($value)) {
             return $value;
         }

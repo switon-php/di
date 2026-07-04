@@ -11,7 +11,7 @@ namespace Switon\Di;
  * Parameter lookup follows position, name, and type-keyed overrides before container resolution.
  *
  * @see \Switon\Di\Container
- * @see \Switon\Di\InjectorInterface::resolveDependency()
+ * @see \Switon\Di\Injector::resolveDependency()
  */
 interface InvokerInterface
 {
