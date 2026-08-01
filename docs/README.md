@@ -156,7 +156,7 @@ Then inject the named slot by property name.
 - Building autowired objects with `new` skips injection.
 - `?Type` does not make autowired object injection optional; use `Type|Lazy` for deferred resolution.
 - Using the container as request-state storage mixes lifecycle scopes.
-- DI resolves services, objects, named slots, and callable arguments; use [Invoker Package](../../invoker/docs/README.md) when you need guards or interceptors around the final callable.
+- DI resolves services, objects, named slots, and callable arguments; use [Invoker Package](https://github.com/switon-php/invoker/blob/main/docs/README.md) when you need guards or interceptors around the final callable.
 - Runtime names usually belong in `NamedLookupInterface`, not hard-coded IDs in business code.
 
 ---
@@ -167,5 +167,6 @@ Then inject the named slot by property name.
 - **To learn named instances:** [Factory](factory.md#factory)
 - **To answer common questions:** [FAQ](faq.md#di-faq)
 - **To understand the trade-offs:** [Design Rationale](design.md#design-rationale)
-- **For bootstrap, config merge, and service providers:** [Kernel](../../kernel/docs/README.md)
-- **To continue from the first app tutorial:** [Tutorial](../../../docs/en/tutorial/README.md#tutorial)
+- **For bootstrap, config merge, and service providers:** [Kernel](https://github.com/switon-php/kernel/blob/main/docs/README.md)
+- **To resolve callable arguments from HTTP or CLI:** [Binding Package](https://github.com/switon-php/binding/blob/main/docs/README.md)
+- **To run guarded and intercepted methods:** [Invoker Package](https://github.com/switon-php/invoker/blob/main/docs/README.md)

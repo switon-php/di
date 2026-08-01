@@ -8,8 +8,8 @@ DI is the layer that keeps Switon application code organized around dependencies
 - [FAQ](faq.md#di-faq) — short answers for common wiring problems
 - [Autowired](autowired.md#autowired) — property injection rules in detail
 - [Factory](factory.md#factory) — named instances and slot selection
-- [Kernel Package](../../kernel/docs/README.md) — env, config merge, and provider bootstrap ordering
-- [Context Package](../../context/docs/README.md) — request-scoped state instead of container singletons
+- [Kernel Package](https://github.com/switon-php/kernel/blob/main/docs/README.md) — env, config merge, and provider bootstrap ordering
+- [Context Package](https://github.com/switon-php/context/blob/main/docs/README.md) — request-scoped state instead of container singletons
 
 ---
 

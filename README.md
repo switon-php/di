@@ -47,7 +47,7 @@ class DashboardService
 }
 ```
 
-Docs: https://docs.switon.dev/latest/di
+Docs: https://github.com/switon-php/di/blob/main/docs/README.md
 
 ## License
 

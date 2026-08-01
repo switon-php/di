@@ -88,4 +88,4 @@ Use a full service ID when the target must be explicit.
 - **To learn named instances:** [Factory](factory.md#factory)
 - **To answer common questions:** [FAQ](faq.md#di-faq)
 - **To understand the trade-offs:** [Design Rationale](design.md#design-rationale)
-- **To continue from the first app tutorial:** [Tutorial](../../../docs/en/tutorial/README.md#tutorial)
+- **For bootstrap, config merge, and service providers:** [Kernel](https://github.com/switon-php/kernel/blob/main/docs/README.md)

@@ -81,4 +81,4 @@ App\Service\MyService:
 - **To learn property injection:** [Autowired](autowired.md#autowired)
 - **To answer common questions:** [FAQ](faq.md#di-faq)
 - **To understand the trade-offs:** [Design Rationale](design.md#design-rationale)
-- **To continue from the first app tutorial:** [Tutorial](../../../docs/en/tutorial/README.md#tutorial)
+- **For bootstrap, config merge, and service providers:** [Kernel](https://github.com/switon-php/kernel/blob/main/docs/README.md)
